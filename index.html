@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rod Hajian — Software Engineer</title>
+<meta name="description" content="Rod Hajian is a software engineer transitioning into AI engineering, building applications on top of LLMs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a1420;
+    --bg-elevated: #0f1e30;
+    --bg-elevated-hover: #142638;
+    --text-primary: #dce6f2;
+    --text-secondary: #8497b3;
+    --accent: #4fd8b8;
+    --accent-dim: rgba(79, 216, 184, 0.1);
+    --border: #1c2e42;
+    --max-width: 600px;
+    --sidebar-width: 38vw;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    font-size: 17px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 12px 20px;
+    z-index: 100;
+    font-weight: 600;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .layout {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: var(--sidebar-width);
+    max-width: 480px;
+    min-width: 320px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 6rem 4rem 3rem 4rem;
+  }
+
+  .intro h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .intro h2 {
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 0.6rem;
+  }
+
+  .intro p {
+    margin-top: 1.25rem;
+    max-width: 320px;
+    font-size: 1rem;
+  }
+
+  nav ul {
+    list-style: none;
+    margin-top: 3rem;
+  }
+
+  nav li {
+    margin-bottom: 1.1rem;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  nav a .dash {
+    height: 1px;
+    width: 2rem;
+    background: var(--text-secondary);
+    transition: width 0.2s ease, background 0.2s ease;
+  }
+
+  nav a:hover,
+  nav a.active {
+    color: var(--text-primary);
+  }
+
+  nav a:hover .dash,
+  nav a.active .dash {
+    width: 3.5rem;
+    background: var(--accent);
+  }
+
+  .socials {
+    display: flex;
+    gap: 1.4rem;
+  }
+
+  .socials a {
+    color: var(--text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .socials a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Main content ---------- */
+  main {
+    flex: 1;
+    padding: 6rem 4rem 8rem 2rem;
+    max-width: 760px;
+  }
+
+  section {
+    max-width: var(--max-width);
+    margin-bottom: 7rem;
+    scroll-margin-top: 4rem;
+  }
+
+  section:last-of-type {
+    margin-bottom: 4rem;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading .num {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+
+  .section-heading h3 {
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 0.5rem;
+  }
+
+  #about p {
+    margin-bottom: 1.1rem;
+  }
+
+  #about p:last-child {
+    margin-bottom: 0;
+  }
+
+  .highlight {
+    color: var(--text-primary);
+  }
+
+  /* ---------- Experience ---------- */
+  .job {
+    padding: 1.6rem;
+    margin: 0 -1.6rem 0.5rem -1.6rem;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+
+  .job:hover {
+    background: var(--bg-elevated);
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.3rem 1rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .job-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .job-company {
+    color: var(--accent);
+  }
+
+  .job-dates {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .job ul {
+    list-style: none;
+    margin-top: 0.9rem;
+  }
+
+  .job li {
+    position: relative;
+    padding-left: 1.3rem;
+    margin-bottom: 0.6rem;
+    font-size: 0.97rem;
+  }
+
+  .job li::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+
+  .job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Projects (placeholder) ---------- */
+  .projects-empty {
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* ---------- Contact ---------- */
+  #contact .section-heading {
+    justify-content: center;
+  }
+  #contact {
+    text-align: center;
+    max-width: var(--max-width);
+  }
+
+  #contact h3.big {
+    font-size: 2.2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+  }
+
+  #contact p {
+    margin-bottom: 2.2rem;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+  }
+
+  .contact-links a {
+    color: var(--text-primary);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .contact-links a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 1rem 4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+
+  /* ---------- Mobile ---------- */
+  @media (max-width: 900px) {
+    .layout {
+      flex-direction: column;
+    }
+    .sidebar {
+      position: relative;
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      height: auto;
+      padding: 3rem 1.75rem 2rem;
+    }
+    .intro p {
+      max-width: none;
+    }
+    nav {
+      display: none;
+    }
+    main {
+      padding: 1rem 1.75rem 5rem;
+      max-width: none;
+    }
+    .job {
+      margin: 0 -1rem 0.5rem -1rem;
+      padding: 1.2rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a href="#about" class="skip-link">Skip to content</a>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div>
+      <div class="intro">
+        <h1>Rod Hajian</h1>
+        <h2>Software Engineer</h2>
+        <p>I build interfaces and internal tools, and I'm moving into engineering applications on top of large language models.</p>
+      </div>
+
+      <nav aria-label="Section navigation">
+        <ul>
+          <li><a href="#about" data-section="about"><span class="dash"></span>About</a></li>
+          <li><a href="#experience" data-section="experience"><span class="dash"></span>Experience</a></li>
+          <li><a href="#projects" data-section="projects"><span class="dash"></span>Projects</a></li>
+          <li><a href="#contact" data-section="contact"><span class="dash"></span>Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="socials" aria-label="Social links">
+      <a href="https://github.com/Hajianrod97" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.4 0 12.07c0 5.34 3.44 9.86 8.21 11.46.6.11.82-.26.82-.58 0-.29-.01-1.06-.02-2.08-3.34.73-4.04-1.62-4.04-1.62-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.74.08-.74 1.21.09 1.84 1.25 1.84 1.25 1.07 1.85 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.31-5.47-1.35-5.47-6.02 0-1.33.47-2.42 1.24-3.27-.12-.31-.54-1.56.12-3.24 0 0 1.01-.33 3.3 1.25a11.4 11.4 0 0 1 6 0c2.29-1.58 3.3-1.25 3.3-1.25.66 1.68.24 2.93.12 3.24.77.85 1.24 1.94 1.24 3.27 0 4.68-2.8 5.71-5.48 6.01.43.38.81 1.12.81 2.27 0 1.64-.02 2.96-.02 3.36 0 .32.22.7.83.58C20.56 21.92 24 17.4 24 12.07 24 5.4 18.63 0 12 0z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/rod-hajian-980879132/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+      </a>
+      <a href="mailto:hajianrod@gmail.com" aria-label="Email">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 5.5h20v13H2z"/><path d="m2 6 10 8L22 6"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <main id="content">
+
+    <section id="about">
+      <div class="section-heading">
+        <span class="num">01.</span>
+        <h3>About</h3>
+      </div>
+      <p>Hi, I'm Rod — a <span class="highlight">San Diego–based software engineer</span> currently shifting focus from frontend development into AI engineering: building real applications on top of large language models rather than training models from scratch.</p>
+      <p>Most recently I spent time at <span class="highlight">ServiceNow</span>, where I built frontend components for a new internal AI platform using the Lit framework, and led the development of multi-agent AI workflows — including a system that automated defect triage and one that converted 270 manual test cases to automated execution using the Claude API.</p>
+      <p>That work is what pulled me toward AI engineering full-time. I'm currently going deep on <span class="highlight">retrieval-augmented generation, vector databases, and agentic tooling</span>, working through an IBM AI Engineer certification, and building projects aimed at practical, unglamorous B2B use cases — the kind of internal tooling that's boring on the surface but genuinely valuable underneath.</p>
+    </section>
+
+    <section id="experience">
+      <div class="section-heading">
+        <span class="num">02.</span>
+        <h3>Experience</h3>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div>
+            <span class="job-title">Quality Engineer / Software Developer</span> · <span class="job-company">ServiceNow</span>
+          </div>
+          <span class="job-dates">May 2024 — Jul 2026</span>
+        </div>
+        <ul>
+          <li>Built new frontend components for ServiceNow's AI platform using the Lit framework, including menus and a chat interface, working closely with designers and integrating with backend APIs.</li>
+          <li>Designed and built a multi-agent AI workflow to automate defect triage and fixes — pulling defect data from internal tools, searching the codebase, generating fix suggestions, implementing them, and writing unit, functional, and integration tests.</li>
+          <li>Led the automated conversion of 270 manual test cases to automated execution in two months using the Claude API and a custom multi-agent workflow, combining Playwright MCP, self-healing test agents, and CI integration with Jenkins.</li>
+        </ul>
+        <div class="job-tags">
+          <span>JavaScript</span><span>Lit</span><span>Claude API</span><span>Multi-agent workflows</span><span>Playwright</span><span>Jenkins</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-heading">
+        <span class="num">03.</span>
+        <h3>Projects</h3>
+      </div>
+      <div class="projects-empty">
+        Projects section coming soon.
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-heading">
+        <span class="num">04.</span>
+        <h3>Contact</h3>
+      </div>
+      <h3 class="big">Get in touch</h3>
+      <p>I'm currently open to software and AI engineering roles — feel free to reach out.</p>
+      <div class="contact-links">
+        <a href="mailto:hajianrod@gmail.com">hajianrod@gmail.com</a>
+        <a href="tel:+19254133938">(925) 413-3938</a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>Built by Rod Hajian</footer>
+
+<script>
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('nav a[data-section]');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = document.querySelector(`nav a[data-section="${entry.target.id}"]`);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
