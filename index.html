@@ -19,33 +19,39 @@
 </script>
 <style>
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 0 0% 100%;
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
-    --accent: 220 14.3% 95.9%;
-    --border: 220 13% 91%;
+    /* Catppuccin Latte */
+    --background: 220 23.1% 94.9%; /* #eff1f5 */
+    --foreground: 233.8 16% 35.5%; /* #4c4f69 */
+    --card: 220 23.1% 94.9%; /* #eff1f5 */
+    --primary: 266 85% 58%; /* #8839ef */
+    --primary-foreground: 220 23.1% 94.9%; /* #eff1f5 */
+    --secondary: 222.9 15.9% 82.7%; /* #ccd0da */
+    --secondary-foreground: 233.8 16% 35.5%; /* #4c4f69 */
+    --muted: 220 22% 92%; /* #e6e9ef */
+    --muted-foreground: 232.8 10.4% 47.3%; /* #6c6f85 */
+    --accent: 220 20.7% 88.6%; /* #dce0e8 */
+    --border: 222.9 15.9% 82.7%; /* #ccd0da */
+    --photo-1: 230.9 97.2% 72%; /* #7287fd */
+    --photo-2: 316 73.4% 69%; /* #ea76cb */
     --radius: 0.5rem;
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
-    --foreground: 210 20% 98%;
-    --card: 224 71.4% 4.1%;
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-    --accent: 215 27.9% 16.9%;
-    --border: 215 27.9% 16.9%;
+    /* Catppuccin Mocha */
+    --background: 240 21.1% 14.9%; /* #1e1e2e */
+    --foreground: 226.2 63.9% 88%; /* #cdd6f4 */
+    --card: 240 21.1% 14.9%; /* #1e1e2e */
+    --primary: 267.4 83.5% 81%; /* #cba6f7 */
+    --primary-foreground: 240 22.7% 8.6%; /* #11111b */
+    --secondary: 236.8 16.2% 22.9%; /* #313244 */
+    --secondary-foreground: 226.2 63.9% 88%; /* #cdd6f4 */
+    --muted: 240 21.3% 12%; /* #181825 */
+    --muted-foreground: 227.6 23.6% 71.8%; /* #a6adc8 */
+    --accent: 236.8 16.2% 22.9%; /* #313244 */
+    --border: 236.8 16.2% 22.9%; /* #313244 */
+    --photo-1: 231.9 97.4% 85.1%; /* #b4befe */
+    --photo-2: 316.5 71.8% 86.1%; /* #f5c2e7 */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; border-color: hsl(var(--border)); }
@@ -113,6 +119,10 @@
 
   .muted { color: hsl(var(--muted-foreground)); }
 
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+  }
+
   /* ---------- Header ---------- */
   header {
     position: sticky;
@@ -137,7 +147,7 @@
     list-style: none;
   }
 
-  header ul a.active { color: hsl(var(--foreground)); }
+  header ul a.active { color: hsl(var(--primary)); }
 
   .icon-btn {
     display: inline-flex;
@@ -209,8 +219,8 @@
     transition: transform 0.3s ease;
   }
 
-  .photo-stack .card.back-1 { transform: rotate(6deg); background: hsl(var(--muted)); }
-  .photo-stack .card.back-2 { transform: rotate(-6deg); background: hsl(var(--secondary)); }
+  .photo-stack .card.back-1 { transform: rotate(6deg); background: hsl(var(--photo-1)); }
+  .photo-stack .card.back-2 { transform: rotate(-6deg); background: hsl(var(--photo-2)); }
   .photo-stack:hover .card.back-1 { transform: rotate(10deg); }
   .photo-stack:hover .card.back-2 { transform: rotate(-10deg); }
 
@@ -277,7 +287,7 @@
     transition: color 0.15s ease;
     display: inline-flex;
   }
-  .socials a:hover { color: hsl(var(--foreground)); }
+  .socials a:hover { color: hsl(var(--primary)); }
   .socials svg { width: 20px; height: 20px; }
 
 
@@ -386,6 +396,8 @@
     margin: 0.5rem 0 0 1rem;
     list-style: disc outside;
   }
+
+  .timeline .bullets li::marker { color: hsl(var(--primary)); }
 
   .timeline .bullets li {
     padding-right: 2rem;
@@ -607,7 +619,7 @@
       <div class="hero-text">
         <h1 class="title">Hi, Rod here. 👋</h1>
         <p class="tagline">Software engineer based in San Diego 🌴</p>
-        <p class="bio">Frontend by background, AI engineering by focus. I build real applications on top of large language models.</p>
+        <p class="bio">6+ years building software and automation, now focused on AI agents and LLM-powered workflows.</p>
 
         <div class="hero-actions">
           <a class="btn-outline" href="resume.pdf" target="_blank" rel="noopener">
