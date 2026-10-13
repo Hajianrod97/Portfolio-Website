@@ -292,7 +292,7 @@
   /* ---------- Tabs ---------- */
   .tablist {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     height: 2.25rem;
     padding: 0.25rem;
     margin-bottom: 0.5rem;
@@ -301,13 +301,22 @@
     color: hsl(var(--muted-foreground));
   }
 
-  .tablist span {
+  .tablist button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    border: none;
     border-radius: calc(var(--radius) - 2px);
+    background: transparent;
+    color: inherit;
+    font: inherit;
     font-size: 0.875rem;
     font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .tablist button[aria-selected="true"] {
     background: hsl(var(--background));
     color: hsl(var(--foreground));
     box-shadow: var(--shadow);
@@ -571,10 +580,10 @@
   <div class="container">
     <nav aria-label="Section navigation">
       <ul>
-        <li><a class="link" href="#top" data-section="top">home</a></li>
-        <li><a class="link" href="#experience" data-section="experience">work</a></li>
-        <li><a class="link" href="#projects" data-section="projects">projects</a></li>
-        <li><a class="link" href="#contact" data-section="contact">contact</a></li>
+        <li><a class="link" href="#top" data-section="top">Home</a></li>
+        <li><a class="link" href="#experience" data-section="experience">Work</a></li>
+        <li><a class="link" href="#projects" data-section="projects">Projects</a></li>
+        <li><a class="link" href="#contact" data-section="contact">Contact</a></li>
       </ul>
     </nav>
     <button class="icon-btn" id="theme-toggle" type="button">
@@ -596,14 +605,14 @@
       </div>
 
       <div class="hero-text">
-        <h1 class="title">hi, rod here. 👋</h1>
+        <h1 class="title">Hi, Rod here. 👋</h1>
         <p class="tagline">Software engineer based in San Diego 🌴</p>
         <p class="bio">Frontend by background, AI engineering by focus. I build real applications on top of large language models.</p>
 
         <div class="hero-actions">
-          <a class="btn-outline" href="mailto:hajianrod@gmail.com">
-            Get in touch
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <a class="btn-outline" href="resume.pdf" target="_blank" rel="noopener">
+            Resume
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M12 18v-6"/><path d="m9 15 3 3 3-3"/></svg>
           </a>
           <div class="socials">
             <a href="https://www.linkedin.com/in/rod-hajian-980879132/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
@@ -625,8 +634,11 @@
 
 
     <section id="experience">
-      <div class="tablist" role="presentation"><span>Work</span></div>
-      <div class="card-box">
+      <div class="tablist" role="tablist" aria-label="Background">
+        <button type="button" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="true">Work</button>
+        <button type="button" role="tab" id="tab-education" aria-controls="panel-education" aria-selected="false" tabindex="-1">Education</button>
+      </div>
+      <div class="card-box" role="tabpanel" id="panel-work" aria-labelledby="tab-work">
         <ul class="timeline">
 
           <li>
@@ -683,11 +695,23 @@
 
         </ul>
       </div>
+      <div class="card-box" role="tabpanel" id="panel-education" aria-labelledby="tab-education" hidden>
+        <ul class="timeline">
+          <li>
+            <span class="logo" aria-hidden="true">SCU</span>
+            <h3 class="company">Santa Clara University</h3>
+            <div class="role-head">
+              <p>B.S. in Management Information Systems</p>
+              <time>Sep 2015 - Jun 2019</time>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
 
     <section id="projects">
       <div class="section-head">
-        <h2 class="title">featured projects</h2>
+        <h2 class="title">Featured Projects</h2>
       </div>
       <div class="project-grid">
         <article class="card-box project">
@@ -715,7 +739,7 @@
 
     <section id="contact">
       <div class="section-head">
-        <h2 class="title">get in touch</h2>
+        <h2 class="title">Get in Touch</h2>
       </div>
       <div class="card-box contact-card">
         <p>I'm currently open to software and AI engineering roles — feel free to reach out.</p>
@@ -761,6 +785,25 @@
   document.getElementById('theme-toggle').addEventListener('click', () => {
     const dark = document.documentElement.classList.toggle('dark');
     try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+  });
+
+  const tabs = document.querySelectorAll('[role="tab"]');
+  const selectTab = (tab) => {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => selectTab(tab));
+    tab.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+      selectTab(next);
+      next.focus();
+    });
   });
 
   const navLinks = document.querySelectorAll('nav a[data-section]');
